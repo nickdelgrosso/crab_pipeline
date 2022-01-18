@@ -2,6 +2,8 @@
 
 ## Running JupyterLab on a Remote Server
 
+Awesome article: https://towardsdatascience.com/how-to-connect-to-jupyterlab-remotely-9180b57c45bb
+
 Exposing Jupyter to the outside
 
 ```
