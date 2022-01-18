@@ -27,7 +27,7 @@ git clone https://github.com/hpcng/singularity.git
 cd singularity
 
 # Checkout 3.8
-git checkout v3.8.4
+git -c advice.detachedHead=false checkout v3.8.4
 
 # Compile Singularity
 ./mconfig
@@ -36,4 +36,4 @@ make
 sudo make install
 
 # show version
-singularity --version
+singularity version
