@@ -35,3 +35,20 @@ From: python:3.9
     pwd
     ls
     pytest --disable-pytest-warnings
+
+
+
+##############################
+# Jupyter Lab App
+##############################
+%apphelp jupyter
+    A collaborative jupyter lab instance
+    To get full interactiveness, launch in "writable" mode.
+
+%appinstall jupyter
+   pip install jupyterlab jupyterlab-link-share
+
+%apprun jupyter
+    jupyter lab --collaborative
+
+

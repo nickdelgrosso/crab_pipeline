@@ -23,5 +23,17 @@ sudo singularity build --sandbox -F Singularity.sif Singularity.def
 singularity shell --bind /path/to/videos:/data/raw Singularity.sif
 ```
 
+## Launch Jupyter Lab
 
-    
+```
+singularity run --app jupyter Singularity.sif
+```
+
+
+## Installing Singularity 3.8
+
+These were the best instructions!
+https://github.com/apptainer/singularity/blob/master/INSTALL.md
+
+### Docs
+https://sylabs.io/guides/3.8/user-guide/
