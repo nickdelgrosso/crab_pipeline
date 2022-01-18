@@ -1,0 +1,36 @@
+Bootstrap: docker
+From: python:3.9
+
+        
+%files
+    requirements.txt /src/requirements.txt
+    tests /src/tests
+    
+
+%post
+    # This code runs while building the container, to get everything installed.  Runs as Root
+    python -m venv /venv
+    . /venv/bin/activate
+    pip install --upgrade pip
+    pip install -r /src/requirements.txt
+
+%environment
+    # This code runs just before opening the container, to set everything up properly for use.
+    
+    # note: the venv prompt does not show up, but it's correct.
+    . /venv/bin/activate
+    export RAWDIR=./data
+
+
+%test
+    if pip freeze | grep -q 'snakemake'; then
+        echo "Snakemake installation found."
+    else
+        echo "Snakemake installation not found."
+        exit 1
+    fi
+    echo "Current Directory:"
+    cd /src
+    pwd
+    ls
+    pytest --disable-pytest-warnings
