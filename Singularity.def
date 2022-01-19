@@ -49,6 +49,6 @@ From: python:3.9
    pip install jupyterlab jupyterlab-link-share
 
 %apprun jupyter
-    jupyter lab --collaborative
+    jupyter lab --no-browser --ip "*" --collaborative
 
 
