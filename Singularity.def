@@ -4,8 +4,7 @@ From: python:3.9
         
 %files
     requirements.txt /src/requirements.txt
-    tests /src/tests
-    
+    tests /src/tests    
 
 %post
     # This code runs while building the container, to get everything installed.  Runs as Root
@@ -47,11 +46,15 @@ From: python:3.9
 
 %appinstall jupyter
    pip install jupyterlab jupyterlab-link-share
-   
+
 %appfiles jupyter
-   jupyter_server_config.json ~/.jupyter/jupyter_server_config.json
+    # Files go to SCIF_APPROOT: https://sylabs.io/guides/3.1/user-guide/cli/singularity_apps.html
+    # https://academic.oup.com/view-large/116684314
+    # SCIF_APPROOT looks like /scif/apps/jupyter
+    # https://academic.oup.com/gigascience/article/7/5/giy023/4931737
+    jupyter_server_config.json
 
 %apprun jupyter
-    jupyter lab --no-browser --ip "*" --collaborative --allow-root
+    jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=$SCIF_APPROOT/jupyter_server_config.json
 
 
