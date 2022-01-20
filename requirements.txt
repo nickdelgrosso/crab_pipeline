@@ -1,3 +1,4 @@
+wheel
 snakemake
 pytest
 opencv-python
