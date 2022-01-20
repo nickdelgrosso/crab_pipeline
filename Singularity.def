@@ -47,6 +47,9 @@ From: python:3.9
 
 %appinstall jupyter
    pip install jupyterlab jupyterlab-link-share
+   
+%appfiles jupyter
+   jupyter_server_config.json ~/.jupyter/jupyter_server_config.json
 
 %apprun jupyter
     jupyter lab --no-browser --ip "*" --collaborative --allow-root
