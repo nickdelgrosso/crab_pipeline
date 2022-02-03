@@ -1,60 +1,63 @@
 Bootstrap: docker
-From: python:3.9
-
-        
-%files
-    requirements.txt /src/requirements.txt
-    tests /src/tests    
+From: conda/miniconda3
 
 %post
-    # This code runs while building the container, to get everything installed.  Runs as Root
-    mkdir -p /data/raw                        # Create empty /data/raw folder (will be bound at runtime by user), needed for sandbox mode
-    python -m venv /opt/venv                  # create python virtual environments
-    . /opt/venv/bin/activate                  # activate it
-    pip install --upgrade pip             # upgrade package manager (to avoid warnings)
-    pip install -r /src/requirements.txt  # install all python dependencies
-    chmod -R 777 /opt/venv                    # make it writable by users (good for interactive mode)
+    apt-get -y update 
+    apt-get -y upgrade
 
-%environment
-    # This code runs just before opening the container, to set everything up properly for use.
+    . /usr/local/etc/profile.d/conda.sh
+
+    conda create -y --name python38 python=3.8 
+    /usr/local/envs/python38/bin/python -m pip install wheel snakemake pytest opencv-python
+
     
-    # note: the venv prompt does not show up, but it should work
-    . /opt/venv/bin/activate
 
 
-%test
-    if pip freeze | grep -q 'snakemake'; then
-        echo "Snakemake installation found."
-    else
-        echo "Snakemake installation not found."
-        exit 1
-    fi
-    echo "Current Directory:"
-    cd /src
-    pwd
-    ls
-    pytest --disable-pytest-warnings
-
-
-
-##############################
-# Jupyter Lab App
-##############################
-%apphelp jupyter
-    A collaborative jupyter lab instance
-    To get full interactiveness, launch in "writable" mode.
-
+# Jupyter Lab
 %appinstall jupyter
-   pip install jupyterlab jupyterlab-link-share
+    conda create -n jupyter python=3.8
+    conda install -n jupyter -c conda-forge nodejs
+    /usr/local/envs/jupyter/bin/python -m pip install wheel ipywidgets jupyterlab jupyterlab-link-share
 
-%appfiles jupyter
-    # Files go to SCIF_APPROOT: https://sylabs.io/guides/3.1/user-guide/cli/singularity_apps.html
-    # https://academic.oup.com/view-large/116684314
-    # SCIF_APPROOT looks like /scif/apps/jupyter
-    # https://academic.oup.com/gigascience/article/7/5/giy023/4931737
-    jupyter_server_config.json
+    echo -e '
+    {
+        "ServerApp": {
+            "password": "argon2:$argon2id$v=19$m=10240,t=10,p=8$GApbmoWfAucdJxZJBhDo/Q$tM4jnP47IkDiuAPDqbuu0RpilVmWMjAxVTKM22qGUyE"
+        }
+    }
+    ' > $SCIF_APPROOT/jupyter_server_config.json
+
 
 %apprun jupyter
-    jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=$SCIF_APPROOT/jupyter_server_config.json
+    /usr/local/envs/jupyter/bin/jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=$SCIF_APPROOT/jupyter_server_config.json
 
 
+# Python Jupyter Lab Kernel
+%appinstall pythonkernel
+    conda install -n python38 ipykernel
+    /usr/local/envs/python38/bin/python -m ipykernel install --name python --display-name "Python 3.8 (default)"
+    
+
+# R Jupyterlab Kernel
+%appinstall rkernel
+
+    # Set up R in a conda environment
+    apt-get install -y libxrender-dev libxext-dev
+    conda create -n rkernel r-recommended r-irkernel
+
+    # Stupid workaround: removes all the optional "function " keywords from the bash scripts, which doesn't work when sh is running the script.
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/activate.d/activate-binutils_linux-64.sh > /usr/local/envs/rkernel/etc/conda/activate.d/activate-binutils_linux-64.sh
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/activate.d/activate-gcc_linux-64.sh > /usr/local/envs/rkernel/etc/conda/activate.d/activate-gcc_linux-64.sh
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/activate.d/activate-gfortran_linux-64.sh > /usr/local/envs/rkernel/etc/conda/activate.d/activate-gfortran_linux-64.sh
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/activate.d/activate-gxx_linux-64.sh > /usr/local/envs/rkernel/etc/conda/activate.d/activate-gxx_linux-64.sh
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/activate.d/activate-r-base.sh > /usr/local/envs/rkernel/etc/conda/activate.d/activate-r-base.sh
+
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-binutils_linux-64.sh > /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-binutils_linux-64.sh
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-gcc_linux-64.sh > /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-gcc_linux-64.sh
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-gfortran_linux-64.sh > /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-gfortran_linux-64.sh
+    sed 's/function //g' /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-gxx_linux-64.sh > /usr/local/envs/rkernel/etc/conda/deactivate.d/deactivate-gxx_linux-64.sh 
+    
+    # Install jupyter and the kernel
+    conda activate rkernel
+    conda install jupyterlab
+    R -e 'IRkernel::installspec()'

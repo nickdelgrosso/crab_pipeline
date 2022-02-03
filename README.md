@@ -37,3 +37,12 @@ https://github.com/apptainer/singularity/blob/master/INSTALL.md
 
 ### Docs
 https://sylabs.io/guides/3.8/user-guide/
+
+
+## Working on the SWC Cluster: An Interactive Session
+
+  1. SSH to the Login Node to get into SWC's :  `ssh username@ssh.swc.ucl.ac.uk`
+  2. Once logged in, SSH from there to the HPC Login Node to get into the HPC Network: `ssh username@hpc-gw1`
+  3. Once in, start an interactive bash session using the **srun** command: `srun --pty bash -i`
+  4. You're in!  Start coding! 
+
