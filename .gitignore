@@ -1,3 +1,4 @@
 *.pyc
 *.sif
 *-checkpoint.ipynb
+.snakemake
