@@ -8,10 +8,18 @@ From: conda/miniconda3
     . /usr/local/etc/profile.d/conda.sh
 
     conda create -y --name python38 python=3.8 
-    /usr/local/envs/python38/bin/python -m pip install wheel snakemake pytest opencv-python
+    /usr/local/envs/python38/bin/python -m pip install wheel pytest opencv-python
 
     
 
+# Snakemake
+%appinstall snakemake
+    /usr/local/envs/python38/bin/python -m pip install snakemake
+
+
+%apprun snakemake
+    /usr/local/envs/python38/bin/snakemake --cores 1 --verbose
+    
 
 # Jupyter Lab
 %appinstall jupyter
