@@ -8,6 +8,7 @@ From: conda/miniconda3
     . /usr/local/etc/profile.d/conda.sh
 
     conda create -y --name python38 python=3.8
+    conda install -n base -c conda-forge mamba
     /usr/local/envs/python38/bin/python -m pip install --upgrade pip 
     /usr/local/envs/python38/bin/python -m pip install wheel snakemake
 
@@ -17,4 +18,4 @@ From: conda/miniconda3
     conda activate python38
 
 %runscript
-    snakemake --cores 1
+    snakemake --use-conda --cores 1

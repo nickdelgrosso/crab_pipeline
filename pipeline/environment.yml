@@ -1,8 +1,9 @@
-name: extractmetadata
+name: pipeline
 channels:
   - defaults
 dependencies:
   - pip:
     - pydantic
     - hachoir
+    - pandas
 
