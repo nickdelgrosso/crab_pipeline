@@ -13,4 +13,4 @@ rule extract_metadata:
     conda:
         "scripts/extract_rawvid_metadata/environment.yml"
     shell:
-        "python scripts/extract_rawvid_metadata/extract_metadata.py {input} > {output}"
+        "python pipeline_steps/extract_rawvid_metadata/extract_metadata.py {input} > {output}"

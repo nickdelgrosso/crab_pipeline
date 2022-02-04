@@ -17,4 +17,4 @@ From: conda/miniconda3
     conda activate python38
 
 %runscript
-    snakemake
+    snakemake --cores 1

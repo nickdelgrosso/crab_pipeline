@@ -35,11 +35,16 @@ sudo singularity build --fakeroot --sandbox -F snakemake.sif snakemake.def
 
 #### Run
 
+To run snakemake with default arguments:
+
 ```bash
 singularity run --bind /path/to/videos:/data/raw snakemake.sif
 ```
 
-
+To run with custom arguments:
+```bash
+singularity exec --bind /path/to/videos:/data/raw snakemake.sif snakemake --cores 1
+```
 
 ## Installing Singularity 3.8
 
