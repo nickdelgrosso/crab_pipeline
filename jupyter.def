@@ -7,44 +7,36 @@ From: conda/miniconda3
 
     . /usr/local/etc/profile.d/conda.sh
 
-    conda create -y --name python38 python=3.8 
-    /usr/local/envs/python38/bin/python -m pip install wheel pytest opencv-python
-
-%runscript
-    conda activate python38
-
-# Snakemake
-%appinstall snakemake
-    /usr/local/envs/python38/bin/python -m pip install snakemake
-
-
-%apprun snakemake
-    /usr/local/envs/python38/bin/snakemake --cores 1 --verbose
-
-
-# Jupyter Lab
-%appinstall jupyter
-    conda create -n jupyter python=3.8
+    conda create -y --name jupyter python=3.8
     conda install -n jupyter -c conda-forge nodejs
+    /usr/local/envs/jupyter/bin/python -m pip install --upgrade pip 
     /usr/local/envs/jupyter/bin/python -m pip install wheel ipywidgets jupyterlab jupyterlab-link-share
 
+    mkdir -p /opt/jupyter
     echo -e '
     {
         "ServerApp": {
             "password": "argon2:$argon2id$v=19$m=10240,t=10,p=8$GApbmoWfAucdJxZJBhDo/Q$tM4jnP47IkDiuAPDqbuu0RpilVmWMjAxVTKM22qGUyE"
         }
     }
-    ' > $SCIF_APPROOT/jupyter_server_config.json
+    ' > /opt/jupyter/jupyter_server_config.json
+
+%environment
+    # Automatically "conda init" so that environments can be activated
+    . /usr/local/etc/profile.d/conda.sh
+    conda activate jupyter
 
 
-%apprun jupyter
-    /usr/local/envs/jupyter/bin/jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=$SCIF_APPROOT/jupyter_server_config.json
+%runscript
+    /usr/local/envs/jupyter/bin/jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=/opt/jupyter/jupyter_server_config.json
 
 
 # Python Jupyter Lab Kernel
 %appinstall pythonkernel
+    conda create -y --name python38 python=3.8
     conda install -n python38 ipykernel
     /usr/local/envs/python38/bin/python -m ipykernel install --name python --display-name "Python 3.8 (default)"
+    /usr/local/envs/python38/bin/python -m pip install numpy matplotlib pandas pydantic
     
 
 # R Jupyterlab Kernel

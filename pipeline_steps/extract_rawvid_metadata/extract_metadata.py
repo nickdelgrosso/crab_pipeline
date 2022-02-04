@@ -1,11 +1,9 @@
 import re
-import os
-from os import path
 from pathlib import Path
-from datetime import timedelta, datetime, time
+from datetime import timedelta, datetime
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class RawVideoMetaData(BaseModel):

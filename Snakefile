@@ -2,13 +2,15 @@
 
 rule all:
     input:
-        "./NINJAV_S001_S001_T003.json"
+        "./data/processed/NINJAV_S001_S001_T003.json"
 
 
 rule extract_metadata:
     input:
-        "/data/raw/NINJAV_S001_S001_T003.MOV"
+        "/data/raw/{rawmov}.MOV"
     output:
-        "./NINJAV_S001_S001_T003.json"
+        "./data/processed/{rawmov}.json"
+    conda:
+        "scripts/extract_rawvid_metadata/environment.yml"
     shell:
-        "python scripts/extract_metadata.py {input} > {output}"
+        "python scripts/extract_rawvid_metadata/extract_metadata.py {input} > {output}"

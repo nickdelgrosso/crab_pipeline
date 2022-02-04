@@ -1,0 +1,8 @@
+name: extractmetadata
+channels:
+  - defaults
+dependencies:
+  - pip:
+    - pydantic
+    - hachoir
+

@@ -2,3 +2,7 @@
 *.sif
 *-checkpoint.ipynb
 .snakemake
+*.img
+data/
+build-*
+.ipynb_checkpoints

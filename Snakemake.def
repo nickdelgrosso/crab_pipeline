@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: conda/miniconda3
+
+%post
+    apt-get -y update 
+    apt-get -y upgrade
+
+    . /usr/local/etc/profile.d/conda.sh
+
+    conda create -y --name python38 python=3.8
+    /usr/local/envs/python38/bin/python -m pip install --upgrade pip 
+    /usr/local/envs/python38/bin/python -m pip install wheel snakemake
+
+%environment
+    # Automatically "conda init" so that environments can be activated
+    . /usr/local/etc/profile.d/conda.sh
+    conda activate python38
+
+%runscript
+    snakemake
