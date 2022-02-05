@@ -21,27 +21,15 @@ From: conda/miniconda3
     }
     ' > /opt/jupyter/jupyter_server_config.json
 
-%environment
-    # Automatically "conda init" so that environments can be activated
-    . /usr/local/etc/profile.d/conda.sh
-    conda activate jupyter
 
-
-%runscript
-    /usr/local/envs/jupyter/bin/jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=/opt/jupyter/jupyter_server_config.json
-
-
-# Python Jupyter Lab Kernel
-%appinstall pythonkernel
+    # Python Jupyter Lab Kernel
     conda create -y --name python38 python=3.8
     conda install -n python38 ipykernel
     /usr/local/envs/python38/bin/python -m ipykernel install --name python --display-name "Python 3.8 (default)"
     /usr/local/envs/python38/bin/python -m pip install numpy matplotlib pandas pydantic
+
+    # R Jupyter Lab Kernel
     
-
-# R Jupyterlab Kernel
-%appinstall rkernel
-
     # Set up R in a conda environment
     apt-get install -y libxrender-dev libxext-dev
     conda create -n rkernel r-recommended r-irkernel
@@ -62,3 +50,15 @@ From: conda/miniconda3
     conda activate rkernel
     conda install jupyterlab
     R -e 'IRkernel::installspec()'
+    
+
+%environment
+    # Automatically "conda init" so that environments can be activated
+    . /usr/local/etc/profile.d/conda.sh
+    conda activate jupyter
+
+
+%runscript
+    /usr/local/envs/jupyter/bin/jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=/opt/jupyter/jupyter_server_config.json
+
+
