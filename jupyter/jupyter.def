@@ -29,7 +29,7 @@ From: conda/miniconda3
     /usr/local/envs/python38/bin/python -m pip install numpy matplotlib pandas pydantic
 
     # R Jupyter Lab Kernel
-    
+
     # Set up R in a conda environment
     apt-get install -y libxrender-dev libxext-dev
     conda create -n rkernel r-recommended r-irkernel
@@ -48,7 +48,6 @@ From: conda/miniconda3
     
     # Install jupyter and the kernel
     conda activate rkernel
-    conda install jupyterlab
     R -e 'IRkernel::installspec()'
     
 
