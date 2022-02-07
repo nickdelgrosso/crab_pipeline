@@ -1,6 +1,6 @@
 
 
-CAMERA, VIDEO_NAMES, = glob_wildcards("/data/raw/{camera}/{rawmov}.MOV")
+SESSION, CAMERA, VIDEO_NAMES, = glob_wildcards("/data/raw/{session}/cam{camera}/{rawmov}.MOV")
 
 
 rule all:
@@ -10,19 +10,19 @@ rule all:
 
 rule extract_metadata:
     input:
-        "/data/raw/{camera}/{rawmov}.MOV"
+        "/data/raw/{session}/cam{camera}/{rawmov}.MOV"
     output:
-        "data/processed/{camera}/{rawmov}.json"
+        "data/processed/{session}_cam-{camera}_mov-{rawmov}.json"
     conda:
         "environment.yml"
     shell:
-        "python scripts/extract_metadata.py {input} > {output}"
+        "python scripts/extract_metadata.py --camera {wildcards.camera} --session {wildcards.session} {input} > {output}"
 
 
 
 rule merge_metadata_to_csv:
     input:
-        expand("data/processed/{camera}/{vid}.json", zip, camera=CAMERA, vid=VIDEO_NAMES)
+        expand("data/processed/{session}_cam-{camera}_mov-{rawmov}.json", zip, session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES)
     output:
         "data/final/movie_paths.csv"
     conda:

@@ -11,14 +11,30 @@ From: conda/miniconda3
     conda activate base
     python -m pip install --upgrade pip 
     
+    apt-get install -y git-all
 
     # https://towardsdatascience.com/how-to-set-up-anaconda-and-jupyter-notebook-the-right-way-de3b7623ea4a
-    conda install conda-forge::jupyterlab conda-forge::nodejs conda-forge::nb_conda_kernels nbclassic==0.3.2
-    pip install wheel ipywidgets jupyterlab-link-share 
+    conda install \
+        conda-forge::jupyterlab \
+        conda-forge::nodejs \
+        conda-forge::nb_conda_kernels \
+        nbclassic==0.3.2
+
+    pip install \
+        wheel \
+        ipywidgets \
+        nbdime \
+        jupyterlab-link-share \
+        jupyterlab-git \
+        jupyterlab-system-monitor \
+        jupyterlab-pullrequests
+
+    # conda install \ 
+    #     conda-forge::jupyterlab-lsp \
+    #     conda-forge::python-lsp-server \
+    #     conda-forge::r-languageserver
+
     # jupyter server extension disable nbclassic
-    
-    apt-get install -y git-all
-    pip install jupyterlab-git
     
 
 %environment

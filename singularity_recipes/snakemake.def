@@ -19,3 +19,6 @@ From: conda/miniconda3
 
 %runscript
     snakemake --use-conda --cores 1
+
+%apprun dryrun
+    snakemake --dry-run

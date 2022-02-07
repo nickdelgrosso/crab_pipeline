@@ -15,9 +15,11 @@ class RawVideoMetaData(BaseModel):
     created_on: Optional[datetime]
     width: Optional[int]
     height: Optional[int]
+    camera: str
+    session: str
     
     
-def parse_metadata(fname: Path) -> RawVideoMetaData:
+def parse_metadata(fname: Path, camera: str = '', session: str = '') -> RawVideoMetaData:
     parser = createParser(str(fname))
     with parser:
         metadata = extractMetadata(parser).exportDictionary()['Metadata']
@@ -56,18 +58,27 @@ def parse_metadata(fname: Path) -> RawVideoMetaData:
         duration = duration,
         created_on = created_on,
         width=width,
-        height=height
+        height=height,
+        camera=camera,
+        session=session,
     )
 
 
 def main():    
     parser = argparse.ArgumentParser(description="Extracts Raw Video Data to JSON")
     parser.add_argument('fname', type=dir_path, help="Path to Video File")
+    parser.add_argument('--camera', default='', help="Name of Camera")
+    parser.add_argument('--session', default='', help="Name of Session")
+
     args = parser.parse_args()
     
     assert args.fname.exists()
     
-    metadata = parse_metadata(fname=args.fname)
+    metadata = parse_metadata(
+        fname=args.fname, 
+        camera=args.camera, 
+        session=args.session
+    )
     print(metadata.json(indent=2))
     
     
