@@ -1,22 +1,22 @@
 
 
-VIDEO_NAMES, = glob_wildcards("/data/raw/{rawmove}.MOV")
+VIDEO_NAMES, = glob_wildcards("/data/raw/{rawmov}.MOV")
 
 
 rule all:
     input:
-        "../data/final/movie_paths.csv"
+        "./data/final/movie_paths.csv"
 
 
 rule extract_metadata:
     input:
         "/data/raw/{rawmov}.MOV"
     output:
-        "../data/processed/{rawmov}.json"
+        "./data/processed/{rawmov}.json"
     conda:
         "environment.yml"
     shell:
-        "python extract_metadata.py {input} > {output}"
+        "python scripts/extract_metadata.py {input} > {output}"
 
 
 
@@ -28,5 +28,5 @@ rule merge_metadata_to_csv:
     conda:
         "environment.yml"
     script:
-        "merge_json_to_csv.py"
+        "scripts/merge_json_to_csv.py"
     
