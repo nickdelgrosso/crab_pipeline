@@ -51,16 +51,38 @@ singularity exec --bind /path/to/videos:/data/raw snakemake.sif snakemake --core
 
 
 
-## Working on the SWC Cluster: An Interactive Session
+
+
+ssh -L 8888:hpc-gw1:8888 -J ngrosso@ssh.swc.ucl.ac.uk ngrosso@hpc-gw1
+# FAQs
+
+###  How do I start an Interactive Session on the SWC Cluster?
 
   1. SSH to the Login Node to get into SWC's :  `ssh username@ssh.swc.ucl.ac.uk`
   2. Once logged in, SSH from there to the HPC Login Node to get into the HPC Network: `ssh username@hpc-gw1`
   3. Once in, start an interactive bash session using the **srun** command: `srun --pty bash -i`
   4. You're in!  Start coding! 
 
+### I don't like typing my password all the time.  Is there a way to send a keypair instead?
+
+Yep!  Do the following twice: once for connecting to the ssh from your computer, then again
+from the ssh node to connect to the hpc-gw1 node:
+
+```
+ssh-keygen -t ed25519
+ssh-copy-id username@ssh.swc.ucl.ac.uk
+```
 
 
-# FAQs
+You can learn more here: https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2
+
+### Can I jump directly to the hpc-gw1 node without typing two sets of ssh commands?
+
+Yes, you can jump hosts with the '-J' flag:
+
+```
+ssh -J username@ssh.swc.ucl.ac.uk username@hpc-gw1
+```
 
 ### How do I mount a usb drive in linux?
 
