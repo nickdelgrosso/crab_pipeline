@@ -1,6 +1,9 @@
 Bootstrap: docker
 From: conda/miniconda3
 
+%help
+    The snakemake workflow manager.  
+
 %post
     apt-get -y update 
     apt-get -y upgrade
@@ -18,14 +21,30 @@ From: conda/miniconda3
     conda activate python38
     snakemake --bash-completion
 
+%test
+    conda --version
+    snakemake --version
+    dot -V
+
 %runscript
-    snakemake --use-conda --cores 1
+    snakemake $*
 
 %apprun dryrun
     snakemake --dry-run
 
+
+
+### Simple app
+%apphelp simple
+    Run the pipeline with default working arguments.
+
+%apprun simple
+    snakemake --cores 1 --use-conda $*
+
+
+### Rulegraph app
 %apphelp rulegraph
-    "Uses Snakemake and Graphviz to render the rule graph DAG to an SVG"
+    Uses Snakemake and Graphviz to render the rule graph DAG to an SVG
 
 %appinstall rulegraph
     apt-get install -y graphviz
