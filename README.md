@@ -105,3 +105,9 @@ local machine:
 ```
  ssh -L 8888:node-ip-name:8888 username@ssh.swc.ucl.ac.uk
 ``` 
+
+### Jupyter Lab's R Kernel makes plots that are too big.  How do I change them?
+
+```r
+options(repr.plot.width=5, repr.plot.height=4)
+```

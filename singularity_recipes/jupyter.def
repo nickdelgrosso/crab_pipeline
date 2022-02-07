@@ -20,12 +20,6 @@ From: conda/miniconda3
     apt-get install -y git-all
     pip install jupyterlab-git
     
-
-%environment
-    # Automatically "conda init" so that environments can be activated
-    . /usr/local/etc/profile.d/conda.sh
-    conda activate base
-
     # Set up password for jupyter
     mkdir -p /opt/jupyter
     echo '
@@ -36,6 +30,10 @@ From: conda/miniconda3
     }
     ' > /opt/jupyter/jupyter_server_config.json
 
+%environment
+    # Automatically "conda init" so that environments can be activated
+    . /usr/local/etc/profile.d/conda.sh
+    conda activate base
 
 %runscript
     jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=/opt/jupyter/jupyter_server_config.json
