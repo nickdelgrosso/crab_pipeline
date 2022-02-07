@@ -48,3 +48,40 @@ From: conda/miniconda3
 %appinstall rkernel
     apt-get install -y libxrender-dev libxext-dev
     conda create -n rkernel r-recommended r-irkernel
+
+
+%appinstall singularity
+    # Install debian packages for dependencies
+    apt-get install -y \
+        build-essential \
+        libseccomp-dev \
+        pkg-config \
+        squashfs-tools \
+        cryptsetup \
+        curl wget git
+
+    # Install Go
+    export GOVERSION=1.17.3 OS=linux ARCH=amd64  # change this as you need
+    wget -O /tmp/go${GOVERSION}.${OS}-${ARCH}.tar.gz \
+    https://dl.google.com/go/go${GOVERSION}.${OS}-${ARCH}.tar.gz
+    tar -C /usr/local -xzf /tmp/go${GOVERSION}.${OS}-${ARCH}.tar.gz
+    export PATH=$PATH:/usr/local/go/bin
+
+    # Clone the Singularity repo
+    git clone https://github.com/hpcng/singularity.git
+    cd singularity
+
+    # Checkout 3.8
+    git -c advice.detachedHead=false checkout v3.8.4
+
+    # Compile Singularity
+    ./mconfig
+    cd ./builddir
+    make
+    make install
+
+%appenv singularity
+    export PATH=$PATH:/usr/local/go/bin
+
+%apptest singularity
+    singularity version

@@ -1,20 +1,24 @@
 *Note:* If using WSL and data is on a usb drive, [mount the drive on the filesystem](https://www.howtogeek.com/331053/how-to-mount-removable-drives-and-network-locations-in-the-windows-subsystem-for-linux/) first so you can access it:
 
-## Run Apps
+
+
+## Build Containers
 
 ### Jupyter Lab
 
 This project contains a jupyter lab instance with many nice features pre-installed:
   - Python Kernel
   - R Kernel
-  - Real-Time Collaboration
+  - Real-Time Collaboration Extension
+  - Git Extension
+  - Singularity 
 
 
 #### Install
 
 Build singularity container:
 ```
-sudo singularity build --fakeroot --sandbox -F jupyter.sif jupyter.def
+singularity build --fakeroot --sandbox -F jupyter.sif singularity_recipes/jupyter.def 
 ```
 
 #### Run
@@ -30,7 +34,7 @@ singularity run --writable --bind /path/to/videos:/data/raw jupyter.sif
 #### Install
 
 ```
-sudo singularity build --fakeroot --sandbox -F snakemake.sif snakemake.def
+sudo singularity build --fakeroot -F snakemake.sif singularity_recipes/snakemake.def
 ```
 
 #### Run
@@ -47,10 +51,6 @@ singularity exec --bind /path/to/videos:/data/raw snakemake.sif snakemake --core
 ```
 
 ## Installing Singularity 3.8
-
-
-
-
 
 
 ssh -L 8888:hpc-gw1:8888 -J ngrosso@ssh.swc.ucl.ac.uk ngrosso@hpc-gw1
