@@ -20,15 +20,6 @@ From: conda/miniconda3
     apt-get install -y git-all
     pip install jupyterlab-git
     
-    # Set up password for jupyter
-    mkdir -p /opt/jupyter
-    echo '
-    {
-        "ServerApp": {
-            "password": "argon2:$argon2id$v=19$m=10240,t=10,p=8$GApbmoWfAucdJxZJBhDo/Q$tM4jnP47IkDiuAPDqbuu0RpilVmWMjAxVTKM22qGUyE"
-        }
-    }
-    ' > /opt/jupyter/jupyter_server_config.json
 
 %environment
     # Automatically "conda init" so that environments can be activated
