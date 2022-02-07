@@ -6,9 +6,9 @@ From: conda/miniconda3
     apt-get -y upgrade
 
     . /usr/local/etc/profile.d/conda.sh
-
-    conda create -y --name python38 python=3.8
     conda install -n base -c conda-forge mamba
+    conda create -y --name python38 python=3.8 
+    
     /usr/local/envs/python38/bin/python -m pip install --upgrade pip 
     /usr/local/envs/python38/bin/python -m pip install wheel snakemake
 

@@ -2,7 +2,14 @@
 
 
 
-## Build Containers
+## Build Singularity Images
+
+If you want to just build everything and you're on the HPC:
+*Note*: This will take a while to build (10-20 minutes), but
+it only needs to be done once.
+```
+bash build_singularity_images_hpc.sh
+```
 
 ### Jupyter Lab
 

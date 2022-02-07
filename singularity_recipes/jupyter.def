@@ -47,7 +47,7 @@ From: conda/miniconda3
 
 %appinstall rkernel
     apt-get install -y libxrender-dev libxext-dev
-    conda create -n rkernel r-recommended r-irkernel
+    conda create -n rkernel r-recommended r-irkernel anaconda::fonts-anaconda r-cairo
 
 
 %appinstall singularity
