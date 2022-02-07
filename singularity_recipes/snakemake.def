@@ -16,9 +16,21 @@ From: conda/miniconda3
     # Automatically "conda init" so that environments can be activated
     . /usr/local/etc/profile.d/conda.sh
     conda activate python38
+    snakemake --bash-completion
 
 %runscript
     snakemake --use-conda --cores 1
 
 %apprun dryrun
     snakemake --dry-run
+
+%apphelp rulegraph
+    "Uses Snakemake and Graphviz to render the rule graph DAG to an SVG"
+
+%appinstall rulegraph
+    apt-get install -y graphviz
+
+%apprun rulegraph
+    snakemake --rulegraph | dot -Tsvg
+    
+
