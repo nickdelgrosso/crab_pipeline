@@ -1,3 +1,10 @@
+
+# Crab Video Processing Pipeline
+
+## Current DAG
+
+![DAG Image](./docs/pipeline_dag.svg)
+
 *Note:* If using WSL and data is on a usb drive, [mount the drive on the filesystem](https://www.howtogeek.com/331053/how-to-mount-removable-drives-and-network-locations-in-the-windows-subsystem-for-linux/) first so you can access it:
 
 
