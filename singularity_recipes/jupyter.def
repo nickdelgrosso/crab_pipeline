@@ -27,7 +27,7 @@ From: conda/miniconda3
     conda activate base
 
 %runscript
-    jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=/opt/jupyter/jupyter_server_config.json
+    jupyter lab --no-browser --ip "*" --collaborative --allow-root
 
 
 %appinstall pythonkernel
