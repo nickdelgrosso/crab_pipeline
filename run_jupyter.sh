@@ -7,4 +7,4 @@ if [ ! -f jupyter2.sif ]; then
 fi
 
 # Run Jupyter
-singularity run --bind /nfs/winstor/branco/Tiago/Field:/data/raw jupyter.sif
+singularity run --bind /nfs/winstor/branco/Tiago/Field:/data/raw jupyter2.sif

@@ -14,7 +14,7 @@ rule extract_metadata:
     output:
         "data/processed/{session}_cam-{camera}_mov-{rawmov}.json"
     conda:
-        "environment.yml"
+        "envs/pipeline/env_pipeline.yml"
     shell:
         "python scripts/extract_metadata.py --camera {wildcards.camera} --session {wildcards.session} {input} > {output}"
 
@@ -26,7 +26,7 @@ rule merge_metadata_to_csv:
     output:
         "data/final/movie_paths.csv"
     conda:
-        "environment.yml"
+        "envs/pipeline/env_pipeline.yml"
     script:
         "scripts/merge_json_to_csv.py"
     
