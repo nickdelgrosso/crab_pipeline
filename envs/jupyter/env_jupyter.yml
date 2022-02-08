@@ -7,13 +7,13 @@ dependencies:
   - pip
   - mamba
   - git
-  - jupyterlab
   - nodejs
   - nb_conda_kernels
   - nbclassic==0.3.2
   - singularity
   - pip:
     - wheel
+    - jupyterlab  # Doesn't work when conda-installing, not sure why.
     - ipywidgets
     - nbdime
     - jupyterlab-link-share

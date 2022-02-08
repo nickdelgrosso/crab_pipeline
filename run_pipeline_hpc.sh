@@ -7,7 +7,7 @@ if [ ! -f snakemake.sif ]; then
 fi
 
 # Run the pipeline
-singularity run --bind /nfs/winstor/branco/Tiago/Field:/data/raw snakemake.sif --cores 2 --use-conda
+singularity run --bind /nfs:/nfs snakemake.sif --cores 2 --use-conda
 
 # Render the pipeline to an image (so it's up to date)
-singularity run --bind /nfs/winstor/branco/Tiago/Field/:/data/raw --app rulegraph snakemake.sif > docs/pipeline_dag.svg
+singularity run --bind /nfs:/nfs --app rulegraph snakemake.sif > docs/pipeline_dag.svg

@@ -5,7 +5,7 @@ From: conda/miniconda3
     The snakemake workflow manager.  
 
 %files
-    ./envs/snakemake/snakemake_env.yml /etc/conda/environment.yml
+    ./envs/snakemake/env_snakemake.yml /etc/conda/environment.yml
 
 %post
     apt-get -y update 

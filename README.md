@@ -6,9 +6,22 @@
 ![DAG Image](./docs/pipeline_dag.svg)
 
 
+
 ## Run the Snakemake pipeline
 
 *Note*: may take a while the first time.
+
+
+### With Conda
+```
+module load miniconda
+conda env create -n snakemake envs/snakemake/env_snakemake.yml  # only first time
+conda activate snakemake
+snakemake --use-conda --cores 1
+```
+
+
+### With Singularity
 
 ```
 bash run_pipeline_hpc.sh
@@ -18,6 +31,29 @@ bash run_pipeline_hpc.sh
 ## Run Jupyter Lab
 
 *Note*: may take a while the first time.
+
+### With Conda
+
+```
+module load miniconda
+conda env create -n jupyter envs/jupyter/env_jupyter.yml  # only first time
+conda activate jupyter
+jupyter lab --no-browser --ip "*" --collaborative --allow-root
+```
+
+To get R Kernel:
+```
+module load miniconda
+conda env create -n rkernel envs/jupyter/env_rkernel.yml  # only first time
+```
+
+To get Python Kernel:
+```
+module load miniconda
+conda env create -n pykernel envs/jupyter/env_pykernel.yml  # only first time
+```
+
+### With Singularity
 
 ```
 bash run_jupyter.sh

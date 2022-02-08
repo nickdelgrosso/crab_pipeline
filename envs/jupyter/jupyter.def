@@ -33,12 +33,3 @@ From: conda/miniconda3
 
 %runscript
     jupyter lab --no-browser --ip "*" --collaborative --allow-root
-
-
-# %appinstall pythonkernel
-#     conda create -n python38 pip python=3.8 ipykernel
-
-# %appinstall rkernel
-    
-    # apt-get install -y libxrender-dev libxext-dev
-    # conda create -n rkernel r-recommended r-irkernel anaconda::fonts-anaconda r-cairo
