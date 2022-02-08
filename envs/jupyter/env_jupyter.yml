@@ -16,6 +16,7 @@ dependencies:
     - jupyterlab  # Doesn't work when conda-installing, not sure why.
     - ipywidgets
     - nbdime
+    - nbconvert
     - jupyterlab-link-share
     - jupyterlab-git
     - jupyterlab-system-monitor

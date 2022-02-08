@@ -10,3 +10,5 @@ dependencies:
   - pip:
     - wheel
     - snakemake
+    # - nbconvert   # for snakemake's jupyter support
+    # - jupyterlab  # for snakemake's jupyter support

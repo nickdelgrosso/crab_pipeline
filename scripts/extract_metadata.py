@@ -25,6 +25,8 @@ def parse_metadata(fname: Path, camera: str = '', session: str = '') -> RawVideo
     with parser:
         metadata = extractMetadata(parser).exportDictionary()['Metadata']
     metadata
+
+    breakpoint()
     
     if 'Duration' in metadata:
         dur = metadata['Duration']

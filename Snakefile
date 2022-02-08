@@ -6,7 +6,7 @@ SESSION, CAMERA, VIDEO_NAMES, = glob_wildcards(config['raw_path'] + "/{session}/
 
 rule all:
     input:
-        "data/final/movie_paths.csv"
+        "data/final/movie_paths.csv",
 
 
 rule extract_metadata:
@@ -18,17 +18,6 @@ rule extract_metadata:
         "envs/pipeline/env_pipeline.yml"
     shell:
         "python scripts/extract_metadata.py --camera {wildcards.camera} --session {wildcards.session} {input} > {output}"
-
-  
-rule extract_metadata2:
-    input:
-        config['raw_path'] + "/{session}/cam{camera}/{rawmov}.MOV"
-    output:
-        "data/processed2/{session}_cam-{camera}_mov-{rawmov}.json"
-    conda:
-        "envs/jupyter/env_jupyter.yml"
-    notebook:
-        "notebooks/check_metadata.py.ipynb"
 
 
 rule merge_metadata_to_csv:
