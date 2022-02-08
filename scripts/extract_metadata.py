@@ -11,12 +11,13 @@ class RawVideoMetaData(BaseModel):
     """The output data model for the metadata."""
     directory: Path
     filename: Path
+    session: str
+    camera: str
+    start_date: Optional[datetime]
+    end_date: Optional[datetime]
     duration: Optional[timedelta]
-    created_on: Optional[datetime]
     width: Optional[int]
     height: Optional[int]
-    camera: str
-    session: str
     
     
 def parse_metadata(fname: Path, camera: str = '', session: str = '') -> RawVideoMetaData:
@@ -36,9 +37,11 @@ def parse_metadata(fname: Path, camera: str = '', session: str = '') -> RawVideo
         duration = None
 
     if 'Creation date' in metadata:
-        created_on = datetime.fromisoformat(metadata['Creation date'])
+        start_date = datetime.fromisoformat(metadata['Creation date'])
     else:
-        created_on = None
+        start_date = None
+
+    end_date = start_date + duration if duration is not None and start_date is not None else None
 
     if 'Image width' in metadata:
         width = re.match("(\d+) pixels", metadata['Image width']).groups()[0]
@@ -56,7 +59,8 @@ def parse_metadata(fname: Path, camera: str = '', session: str = '') -> RawVideo
         directory=Path(fname).parent,
         filename=Path(fname).name,
         duration = duration,
-        created_on = created_on,
+        start_date = start_date,
+        end_date = end_date,
         width=width,
         height=height,
         camera=camera,

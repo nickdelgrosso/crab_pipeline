@@ -1,0 +1,16 @@
+Bootstrap: docker
+From: conda/miniconda3
+
+%help
+    Miniconda.  Use with `singularity run conda.sif <your conda commands>`
+
+%post
+    apt-get -y update 
+    apt-get -y upgrade
+
+%environment
+    # Automatically "conda init" so that environments can be activated
+    . /usr/local/etc/profile.d/conda.sh
+
+%runscript
+    conda $*    

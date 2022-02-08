@@ -5,70 +5,36 @@
 
 ![DAG Image](./docs/pipeline_dag.svg)
 
-*Note:* If using WSL and data is on a usb drive, [mount the drive on the filesystem](https://www.howtogeek.com/331053/how-to-mount-removable-drives-and-network-locations-in-the-windows-subsystem-for-linux/) first so you can access it:
 
+## Run the Snakemake pipeline
 
+*Note*: may take a while the first time.
 
-## Build Singularity Images
-
-If you want to just build everything and you're on the HPC:
-*Note*: This will take a while to build (10-20 minutes), but
-it only needs to be done once.
 ```
-bash build_singularity_images_hpc.sh
-```
-
-### Jupyter Lab
-
-This project contains a jupyter lab instance with many nice features pre-installed:
-  - Python Kernel
-  - R Kernel
-  - Real-Time Collaboration Extension
-  - Git Extension
-  - Singularity 
-
-
-#### Install
-
-Build singularity container:
-```
-singularity build --fakeroot --sandbox -F jupyter.sif singularity_recipes/jupyter.def 
-```
-
-#### Run
-
-Run Jupyter in the container:
-```
-singularity run --writable --bind /path/to/videos:/data/raw jupyter.sif
+bash run_pipeline_hpc.sh
 ```
 
 
-### Snakemake
+## Run Jupyter Lab
 
-#### Install
+*Note*: may take a while the first time.
 
 ```
-sudo singularity build --fakeroot -F snakemake.sif singularity_recipes/snakemake.def
+bash run_jupyter.sh
 ```
 
-#### Run
-
-To run snakemake with default arguments:
-
-```bash
-singularity run --bind /path/to/videos:/data/raw snakemake.sif
-```
-
-To run with custom arguments:
-```bash
-singularity exec --bind /path/to/videos:/data/raw snakemake.sif snakemake --cores 1
-```
-
-## Installing Singularity 3.8
 
 
-ssh -L 8888:hpc-gw1:8888 -J ngrosso@ssh.swc.ucl.ac.uk ngrosso@hpc-gw1
 # FAQs
+
+### I'm running this on my laptop, and the data is on a USB drive.  Can I still run the same pipeline?
+
+Yes!  All that's needed is to mount the data folder to the /data/raw directory in the snakemake singularity image.
+
+  1. *Note:* If using WSL, [mount the drive on the filesystem](https://www.howtogeek.com/331053/how-to-mount-removable-drives-and-network-locations-in-the-windows-subsystem-for-linux/) first so you can access it:
+
+  2. Run snakemake with your bind path and the settings you want (e.g. `singularity run --bind /my/path:/data/raw snakemake.sif --cores 1 --use-conda`)
+
 
 ###  How do I start an Interactive Session on the SWC Cluster?
 

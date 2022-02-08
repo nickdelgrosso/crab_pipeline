@@ -1,0 +1,44 @@
+Bootstrap: docker
+From: conda/miniconda3
+
+%help
+    This project contains a jupyter lab instance with many nice features pre-installed:
+    - Python Kernel
+    - R Kernel
+    - Real-Time Collaboration
+    - Resource Monitoring
+    - Git Extension
+    - Singularity 
+
+%files
+    ./envs/jupyter/env_jupyter.yml /etc/conda/env_jupyter.yml
+    ./envs/jupyter/env_rkernel.yml /etc/conda/env_rkernel.yml
+    ./envs/jupyter/env_pykernel.yml /etc/conda/env_pykernel.yml
+
+%post
+    apt-get -y update 
+    apt-get -y upgrade
+    conda env create -f /etc/conda/env_jupyter.yml -n jupyter
+    conda env create -f /etc/conda/env_rkernel.yml -n rkernel
+    conda env create -f /etc/conda/env_pykernel.yml -n pykernel
+
+%environment
+    # Automatically "conda init" so that environments can be activated
+    . /usr/local/etc/profile.d/conda.sh
+    conda activate jupyter
+
+%test
+    git --version
+    jupyter --version
+
+%runscript
+    jupyter lab --no-browser --ip "*" --collaborative --allow-root
+
+
+# %appinstall pythonkernel
+#     conda create -n python38 pip python=3.8 ipykernel
+
+# %appinstall rkernel
+    
+    # apt-get install -y libxrender-dev libxext-dev
+    # conda create -n rkernel r-recommended r-irkernel anaconda::fonts-anaconda r-cairo

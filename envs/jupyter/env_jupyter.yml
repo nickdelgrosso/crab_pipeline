@@ -1,0 +1,22 @@
+channels:
+  - conda-forge
+  - defaults
+  - anaconda
+dependencies:
+  - python=3.8
+  - pip
+  - mamba
+  - git
+  - jupyterlab
+  - nodejs
+  - nb_conda_kernels
+  - nbclassic==0.3.2
+  - singularity
+  - pip:
+    - wheel
+    - ipywidgets
+    - nbdime
+    - jupyterlab-link-share
+    - jupyterlab-git
+    - jupyterlab-system-monitor
+    - jupyterlab-pullrequests

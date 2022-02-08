@@ -1,0 +1,11 @@
+channels:
+  - conda-forge
+  - defaults
+  - anaconda
+dependencies:
+  - r-recommended
+  - r-irkernel
+  - fonts-anaconda
+  - r-cairo
+  - xorg-libxrender
+  - xorg-libxext

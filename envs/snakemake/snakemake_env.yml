@@ -1,0 +1,12 @@
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - mamba
+  - python=3.8
+  - pip
+  - graphviz
+  - singularity
+  - pip:
+    - wheel
+    - snakemake
