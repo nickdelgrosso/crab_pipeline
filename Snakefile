@@ -20,6 +20,17 @@ rule extract_metadata:
         "python scripts/extract_metadata.py --camera {wildcards.camera} --session {wildcards.session} {input} > {output}"
 
 
+# rule extract_metadata2:
+#     input:
+#         config['raw_path'] + "/{session}/cam{camera}/{rawmov}.MOV"
+#     output:
+#         config['processed_path'] + "/metadata_ffprobe_jsons/{session}_cam-{camera}_mov-{rawmov}.json"
+#     container:
+#         "envs/vid_metadata/ffprobe.def"
+#     shell:
+#         "python scripts/extract_metadata_ffprobe.py --camera {wildcards.camera} --session {wildcards.session} {input} > {output}"
+
+
 rule merge_metadata_to_csv:
     input:
         expand(config['processed_path'] + "/metadata_jsons/{session}_cam-{camera}_mov-{rawmov}.json", zip, session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES)
