@@ -22,6 +22,15 @@ From: conda/miniconda3
     conda env create -f /etc/conda/env_rkernel.yml -n rkernel
     conda env create -f /etc/conda/env_pykernel.yml -n pykernel
 
+    mkdir -p /opt/jupyter
+    echo -e '
+    {
+        "ServerApp": {
+            "password": "argon2:$argon2id$v=19$m=10240,t=10,p=8$GApbmoWfAucdJxZJBhDo/Q$tM4jnP47IkDiuAPDqbuu0RpilVmWMjAxVTKM22qGUyE"
+        }
+    }
+    ' > /opt/jupyter/jupyter_server_config.json
+
 %environment
     # Automatically "conda init" so that environments can be activated
     . /usr/local/etc/profile.d/conda.sh
@@ -32,4 +41,4 @@ From: conda/miniconda3
     jupyter --version
 
 %runscript
-    jupyter lab --no-browser --ip "*" --collaborative --allow-root
+    jupyter lab --no-browser --ip "*" --collaborative --allow-root --config=/opt/jupyter/jupyter_server_config.json
