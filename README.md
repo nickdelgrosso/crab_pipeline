@@ -11,20 +11,24 @@
 
 *Note*: may take a while the first time.
 
-
 ### With Conda
 ```
+git clone https://github.com/nickdelgrosso/crab_pipeline
+cd crab_pipeline
 module load miniconda
-conda env create -n snakemake envs/snakemake/env_snakemake.yml  # only first time
+conda env create -n snakemake envs/snakemake/env_snakemake.yml
 conda activate snakemake
-snakemake --use-conda --cores 1
+snakemake --use-conda --cores 1 --config processed_path=./data
 ```
 
 
 ### With Singularity
 
 ```
-bash run_pipeline_hpc.sh
+git clone https://github.com/nickdelgrosso/crab_pipeline
+cd crab_pipeline
+singularity build --fakeroot snakemake.sif envs/snakemake/snakemake.def
+singularity run snakemake.sif --use-conda --cores 1 --config processed_path=./data
 ```
 
 
