@@ -6,7 +6,8 @@ import pandas as pd
 
 
 def csv_from_json_filenames(filenames: List[str], output: str) -> None:
-    data = [json.loads(Path(f).read_text()) for f in filenames]
+    texts = (Path(f).read_text() for f in filenames)
+    data = [json.loads(text) for text in texts]
     df = pd.DataFrame(data)
     df.to_csv(output, index=False)
 
