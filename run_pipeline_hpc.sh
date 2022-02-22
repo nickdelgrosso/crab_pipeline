@@ -7,7 +7,7 @@ if [ ! -f snakemake.sif ]; then
 fi
 
 # Run the pipeline
-singularity run --bind /nfs:/nfs snakemake.sif --cores 2 --use-conda --rerun-incomplete
+singularity run --bind /nfs:/nfs,/ceph:/ceph snakemake.sif --cores 2 --use-conda --rerun-incomplete
 
 # Render the pipeline to an image (so it's up to date)
-singularity run --bind /nfs:/nfs --app rulegraph snakemake.sif > docs/pipeline_dag.svg
+singularity run --bind /nfs:/nfs,/ceph:/ceph --app rulegraph snakemake.sif > docs/pipeline_dag.svg
