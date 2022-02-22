@@ -7,7 +7,7 @@ SESSION, CAMERA, VIDEO_NAMES, = glob_wildcards(config['raw_path'] + "/{session}/
 rule all:
     input:
         config['processed_path'] + "/metadata_csv/movie_paths.csv",
-        expand(config['processed_path'] + "/videos/{session}_cam{camera}_{rawmov}.mp4", session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES)[0]
+        expand(config['processed_path'] + "/videos/{session}_cam{camera}_{rawmov}.mp4", session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES)
 
 
 rule build_singularity_image_file:
