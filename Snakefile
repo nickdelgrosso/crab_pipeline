@@ -7,6 +7,26 @@ SESSION, CAMERA, VIDEO_NAMES, = glob_wildcards(config['raw_path'] + "/{session}/
 rule all:
     input:
         config['processed_path'] + "/metadata_csv/movie_paths.csv",
+        expand(config['processed_path'] + "/videos/{session}_cam{camera}_{rawmov}.mp4", session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES)[0]
+
+
+rule build_singularity_image_file:
+    input:
+        "envs/{recipe}/{recipe}.def"
+    output:
+        "{recipe}.sif"
+    shell:
+        "singularity build --fakeroot -f {output} {input}"
+
+rule convert_mov_to_mp4:
+    input:
+        config['raw_path'] + "/{session}/cam{camera,[0-9]}/{rawmov}.MOV"
+    output:
+        config['processed_path'] + "/videos/{session}_cam{camera,[0-9]}_{rawmov}.mp4"
+    log:
+        config['processed_path'] + "/videos/log/{session}_cam{camera,[0-9]}_{rawmov}.log"
+    shell:
+        "singularity run --bind /nfs:/nfs,/ceph:/ceph ffmpeg.sif -i {input} {output} 2> {log}"
 
 
 rule extract_metadata:

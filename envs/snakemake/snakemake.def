@@ -11,6 +11,9 @@ From: conda/miniconda3
     apt-get -y update 
     apt-get -y upgrade
     conda env create -f /etc/conda/environment.yml -n snakemake
+    . /usr/local/etc/profile.d/conda.sh
+    conda activate snakemake
+    conda install singularity
 
 %environment
     # Automatically "conda init" so that environments can be activated

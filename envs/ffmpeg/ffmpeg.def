@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: jrottenberg/ffmpeg:3-alpine
