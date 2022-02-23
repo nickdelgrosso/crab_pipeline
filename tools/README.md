@@ -1,7 +1,7 @@
 # Environments 
 
 This directory contains conda and singularity environment files for
-getting needed software.  
+getting needed software.
 
 ## Conda Environmnets
 
