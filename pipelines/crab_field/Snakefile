@@ -12,7 +12,7 @@ rule all:
         'docs/filegraph.svg',
         'docs/rulegraph.svg',
         config['processed_path'] + "/metadata_csv/movie_paths.csv",
-        # expand(config['processed_path'] + "/videos/{session}_cam{camera}_{rawmov}.mp4", session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES)
+        (expand(config['processed_path'] + "/videos/{session}_cam{camera}_{rawmov}.mp4", session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES) if config['run_slow'] else [])
 
 
 
@@ -24,7 +24,7 @@ rule convert_mov_to_mp4:
     log:
         config['processed_path'] + "/videos/log/{session}_cam{camera,[0-9]}_{rawmov}.log"
     conda:
-        "tools/ffmpeg/environment.yml"
+        "../../tools/ffmpeg/environment.yml"
     container:
         "docker://jrottenberg/ffmpeg:3-alpine"
     shell:
