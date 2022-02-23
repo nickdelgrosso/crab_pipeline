@@ -3,6 +3,31 @@
 This directory contains conda and singularity environment files for
 getting needed software.  
 
+## Conda Environmnets
+
+Note that on the HPC you'll always need to activate miniconda first:
+```
+module load miniconda
+```
+
+### Building 
+
+Example for snakemake shown below:
+
+
+
+Then to build:
+```
+conda env create -n snakemake -f envs/snakemake/env_snakemake.yml
+```
+
+### Running
+
+```
+conda activate snakemake
+snakemake --cores 1 --use-conda
+```
+
 ## Singularity Containers
 
 
@@ -15,7 +40,7 @@ files, and have relative paths from the working directory.  Accordingly,
 you should build them from the project root directory.
 
 ```
-singularity build --fakeroot myimage.sif envs/myimage/myimage.def
+singularity build --fakeroot snakemake.sif envs/snakemake/snakemake.def
 ```
 
 ### Running
@@ -23,7 +48,7 @@ singularity build --fakeroot myimage.sif envs/myimage/myimage.def
 Run default program (usually indicated by the name of the def):
 
 ```
-singularity run myimage.sif
+singularity run snakemake.sif --cores 1  --use-conda
 ```
 
 Activate environment:

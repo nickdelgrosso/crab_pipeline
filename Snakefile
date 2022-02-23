@@ -1,8 +1,6 @@
 configfile: "config.yaml"
-print(config)
 
 SESSION, CAMERA, VIDEO_NAMES, = glob_wildcards(config['raw_path'] + "/{session}/cam{camera}/{rawmov}.MOV")
-
 
 rule all:
     input:
@@ -16,17 +14,22 @@ rule build_singularity_image_file:
     output:
         "{recipe}.sif"
     shell:
-        "singularity build --fakeroot -f {output} {input}"
+        "singularity build --fakeroot {output} {input}"
+
 
 rule convert_mov_to_mp4:
     input:
-        config['raw_path'] + "/{session}/cam{camera,[0-9]}/{rawmov}.MOV"
+        video = config['raw_path'] + "/{session}/cam{camera,[0-9]}/{rawmov}.MOV"
     output:
         config['processed_path'] + "/videos/{session}_cam{camera,[0-9]}_{rawmov}.mp4"
+    conda:
+        "envs/ffmpeg/ffmpeg.yml"
+    container:
+        "docker://jrottenberg/ffmpeg:3-alpine"
     log:
         config['processed_path'] + "/videos/log/{session}_cam{camera,[0-9]}_{rawmov}.log"
     shell:
-        "singularity run --bind /nfs:/nfs,/ceph:/ceph ffmpeg.sif -i {input} {output} 2> {log}"
+        "ffmpeg -i {input.video} {output} 2> {log}"
 
 
 rule extract_metadata:
