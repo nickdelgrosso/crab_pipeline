@@ -36,6 +36,15 @@ tools/               # Installation files for generally-needed software
         software.def        # Singularity recipe (singularity build software.sif software.def)
         software.sh         # Other bash installation files
         README.md           # Docs and explanations, if needed.
+
+
+scratch/            # Junk and experimental code, for testing things out (not used in a pipeline)
+    person_name/        #  Person who created it
+        anything.ipynb         # notebook files
+        anything.py            # python scripts
+        anything.R             # R script
+        anything.Rmd           # R Markdown script
+        anything.sh            # shell scripts
 ```
 
 ## Running Individual Pipelines
