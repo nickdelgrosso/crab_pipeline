@@ -1,0 +1,19 @@
+from snakemake.utils import min_version
+min_version("6.0")
+
+configfile: "config.yaml"
+
+VIDEO_NAMES = ['jwasp0', 'jwasp1']
+
+
+rule all:
+    input:
+        "docs/rulegraph.svg"
+
+
+
+rule build_rulegraph:
+    output:
+        "docs/rulegraph.svg"
+    shell:
+        "snakemake --rulegraph | dot -Tsvg > {output}"

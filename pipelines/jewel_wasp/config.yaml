@@ -1,0 +1,3 @@
+raw_path: "/ceph/zoo/test_dir/Zoo_Jwasp_test/"
+processed_path: "/ceph/zoo/users/ngrosso/jewel_wasp"
+run_slow: true
