@@ -29,6 +29,7 @@ rule convert_mov_to_mp4:
         "docker://jrottenberg/ffmpeg:3-alpine"
     shell:
         "ffmpeg -i {input.video} {output} 2> {log}"
+    priority: -1   # Run at the end, once everything else is done.
 
 
 rule extract_metadata:
