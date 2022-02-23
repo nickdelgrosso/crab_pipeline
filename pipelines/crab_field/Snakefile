@@ -9,6 +9,8 @@ SESSION, CAMERA, VIDEO_NAMES, = glob_wildcards(config['raw_path'] + "/{session}/
 
 rule all:
     input:
+        'docs/filegraph.svg',
+        'docs/rulegraph.svg',
         config['processed_path'] + "/metadata_csv/movie_paths.csv",
         # expand(config['processed_path'] + "/videos/{session}_cam{camera}_{rawmov}.mp4", session=SESSION, camera=CAMERA, rawmov=VIDEO_NAMES)
 
@@ -73,3 +75,20 @@ rule build_singularity_image_file:
         "{recipe}.sif"
     shell:
         "singularity build --fakeroot {output} {input}"
+
+
+rule build_rulegraph:
+    output:
+        "docs/rulegraph.svg"
+    shell:
+        "snakemake --rulegraph | dot -Tsvg > {output}"
+
+
+rule build_filegraph:
+    output:
+        "docs/filegraph.svg"
+    shell:
+        "snakemake --filegraph | dot -Tsvg > {output}"
+
+
+# rule build_
