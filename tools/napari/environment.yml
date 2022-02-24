@@ -3,5 +3,6 @@ channels:
 dependencies:
   - python=3.8
   - pip
+  - ipykernel
   - pip:
     - napari[all]
