@@ -29,6 +29,13 @@ pipelines/           # All pipeline code
                main.py           # script
                environment.yml   # conda env
                step.def          # singularity recipe
+        scratch/            # Junk and experimental code, for testing things out (not used in a pipeline)
+            person_name/        #  Person who created it
+                anything.ipynb         # notebook files
+                anything.py            # python scripts
+                anything.R             # R script
+                anything.Rmd           # R Markdown script
+                anything.sh            # shell scripts
 
 tools/               # Installation files for generally-needed software
     software_name/       # Files for specific software
@@ -38,13 +45,7 @@ tools/               # Installation files for generally-needed software
         README.md           # Docs and explanations, if needed.
 
 
-scratch/            # Junk and experimental code, for testing things out (not used in a pipeline)
-    person_name/        #  Person who created it
-        anything.ipynb         # notebook files
-        anything.py            # python scripts
-        anything.R             # R script
-        anything.Rmd           # R Markdown script
-        anything.sh            # shell scripts
+
 ```
 
 ## Running Individual Pipelines
