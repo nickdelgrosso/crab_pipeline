@@ -7,8 +7,11 @@ assignees: ''
 description: A custom form!
 body:
   - type: textarea
-    label: Describe the Bug!
     id: bug-description
-    placeholder: A clear and concise description of what the bug is.
+    attributes:
+      label: Describe the Bug!
+      description: This is an extra description.
+      placeholder: A clear and concise description of what the bug is.
+      
     validations:
       required: true
