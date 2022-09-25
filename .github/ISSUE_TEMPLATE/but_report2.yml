@@ -20,9 +20,10 @@ body:
     validations:
       required: false
   - type: dropdown
-    label: Operating System
-    options: 
-      - Windows
-      - Mac
-      - Linux
+    attributes:
+      label: Operating System
+      options: 
+        - Windows
+        - Mac
+        - Linux
     
