@@ -16,19 +16,13 @@ body:
     attributes:
       label: The error
       description: Copy-paste the error code you see in the terminal (as much as you can) here
-      render: bash
+      render: python
     validations:
       required: false
-  - type: textarea
-    attributes:
-      label: Environment
-      description: |
-        examples:
-          - **OS**: Ubuntu 20.04
-          - **Node**: 13.14.0
-          - **npm**: 7.6.3
-      value: |
-          - OS:
-          - Node:
-          - npm:
-      render: markdown
+  - type: dropdown
+    label: Operating System
+    options: 
+      - Windows
+      - Mac
+      - Linux
+    
