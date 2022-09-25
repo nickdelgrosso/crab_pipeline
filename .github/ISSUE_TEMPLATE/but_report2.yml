@@ -1,0 +1,14 @@
+name: Bug report 2
+about: Create a report to help us improve!
+title: 'This is the Title'
+labels: ''
+assignees: ''
+
+description: A custom form!
+body:
+  - type: textarea
+    label: Describe the Bug!
+    id: bug-description
+    placeholder: A clear and concise description of what the bug is.
+    validations:
+      required: true
